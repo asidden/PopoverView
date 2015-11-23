@@ -161,7 +161,12 @@
     UIFont *font = kTextFont;
     
     CGSize screenSize = [self screenSize];
-    CGSize textSize = [text sizeWithFont:font constrainedToSize:CGSizeMake(screenSize.width - kHorizontalMargin*4.f, 1000.f) lineBreakMode:UILineBreakModeWordWrap];
+    
+    id attributes = @{ NSFontAttributeName: font };
+    CGSize textSize = [text boundingRectWithSize:CGSizeMake(screenSize.width-kHorizontalMargin*4.f, 1000.f)
+                                         options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
+                                      attributes:attributes
+                                         context:nil].size;
     
     UILabel *textView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, textSize.width, textSize.height)];
     textView.backgroundColor = [UIColor clearColor];
@@ -180,7 +185,12 @@
     UIFont *font = kTextFont;
     
     CGSize screenSize = [self screenSize];
-    CGSize textSize = [text sizeWithFont:font constrainedToSize:CGSizeMake(screenSize.width - kHorizontalMargin*4.f, 1000.f) lineBreakMode:UILineBreakModeWordWrap];
+    
+    id attributes = @{ NSFontAttributeName: font };
+    CGSize textSize = [text boundingRectWithSize:CGSizeMake(screenSize.width-kHorizontalMargin*4.f, 1000.f)
+                                         options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
+                                      attributes:attributes
+                                         context:nil].size;
     
     UILabel *textView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, textSize.width, textSize.height)];
     textView.backgroundColor = [UIColor clearColor];
@@ -269,7 +279,9 @@
     UIView *container = [[UIView alloc] initWithFrame:CGRectZero];
     
     //Create a label for the title text.
-    CGSize titleSize = [title sizeWithFont:kTitleFont];
+    id attributes = @{ NSFontAttributeName: kTitleFont };
+    CGSize titleSize = [title sizeWithAttributes:attributes];
+    
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.f, 0.f, titleSize.width, titleSize.height)];
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.font = kTitleFont;
@@ -356,7 +368,9 @@
     UIFont *font = kTextFont;
     
     for (NSString *string in stringArray) {
-        CGSize textSize = [string sizeWithFont:font];
+        id attributes = @{ NSFontAttributeName: font };
+        CGSize textSize = [string sizeWithAttributes:attributes];
+        
         UIButton *textButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, textSize.width, textSize.height)];
         textButton.backgroundColor = [UIColor clearColor];
         textButton.titleLabel.font = font;
@@ -381,7 +395,9 @@
     UIFont *font = kTextFont;
     
     for (NSString *string in stringArray) {
-        CGSize textSize = [string sizeWithFont:font];
+        id attributes = @{ NSFontAttributeName: font };
+        CGSize textSize = [string sizeWithAttributes:attributes];
+        
         UIButton *textButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, textSize.width, textSize.height)];
         textButton.backgroundColor = [UIColor clearColor];
         textButton.titleLabel.font = font;
@@ -428,7 +444,9 @@
         NSString *string = [stringArray objectAtIndex:i];
         
         //First we build a label for the text to set in.
-        CGSize textSize = [string sizeWithFont:font];
+        id attributes = @{ NSFontAttributeName: font };
+        CGSize textSize = [string sizeWithAttributes:attributes];
+        
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, textSize.width, textSize.height)];
         label.backgroundColor = [UIColor clearColor];
         label.font = font;
